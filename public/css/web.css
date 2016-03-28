@@ -1,0 +1,35 @@
+.page_title {
+    color: #930a11;
+    font-weight: 400;
+    text-align: center;
+    margin: 10em 0 2em 0;
+}
+
+.fa-btn{ margin-right: 1em;}
+
+.navbar-header img{ margin: 10px}
+
+.row{ padding: 0 10px;}
+
+.btn-inline{ margin-top: 25px;}
+
+.ui-dialog{font-size: 80%;}
+
+.dialog { display: none;}
+
+body{
+    overflow-x: hidden;
+}
+
+.font-red{
+    color: red;
+}
+
+ul.answer-ul{
+    margin: 0;
+    padding-left:20px;
+}
+
+ul.answer-ul li{
+    list-style: upper-latin;
+}
