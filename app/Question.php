@@ -9,6 +9,19 @@ class Question extends Model
     protected $fillable = [
         "title",
         "score",
-        "eid"
+        "eid",
+        "choice"
     ];
+
+
+
+    public function answers()
+    {
+        return $this->hasMany('App\Answer','qid');
+    }
+
+    public function exam()
+    {
+        return $this->belongsTo('App\Exam','eid');
+    }
 }

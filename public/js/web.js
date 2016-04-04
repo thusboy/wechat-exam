@@ -1,4 +1,6 @@
 $(function(){
+
+
     $('.input-daterange').datepicker({
         language: 'zh-CN',
         todayBtn: 'linked',
@@ -47,11 +49,24 @@ $(function(){
         $("input[name='end']").val($("#end"+id).html());
     })
     $('#add-answer').click(function(){
+        if($('.answer-table tr a:last').length > 0){
+            var last_id = parseInt($('.answer-table tr a:last').attr('id')) + 1;
+        }
+        else {
+            var last_id = 1;
+        }
         var content=$('.stand tbody').html();
-        var i=0;
-        $(".answer-table tr").each(function(){
-            i++;
-        });
-        $('.answer-table').append(content.replace(/replace/g,i));
+        $('.answer-table').append(content.replace(/replace/g,last_id));
     })
+
+
+
+    $(document).on("click",".answer-remove",function(){
+
+        $("#answer"+$(this).attr('id')).remove();
+    })
+
+
+
+
 })

@@ -12,7 +12,12 @@ use App\Question;
 
 use App\Answer;
 
+use App\Wechatuser;
+
+use App\Score;
+
 use Redirect;
+
 
 class AdminController extends Controller
 {
@@ -31,8 +36,13 @@ class AdminController extends Controller
      */
     public function index()
     {
-
-        return view('admin.sum');
+        $overview["people"] = Wechatuser::count();
+        $overview["male"] = Wechatuser::where("sex","=","1")->count();
+        $overview["female"] = Wechatuser::where("sex","=","2")->count();
+        $overview["exam"] = Exam::count();
+        $overview["question"] = Question::count();
+        $overview["join"] = Score::count();
+        return view("admin.overview",compact("overview"));
     }
 
     public function exam()
@@ -55,34 +65,43 @@ class AdminController extends Controller
         return view('admin.question',compact('questions'));
     }
 
-    public function store()
+    public function storeExam(Requests\ExamFormRequest $request)
     {
-        $request = Request::all();
-        switch ($request["type"]) {
-            case "exam":
-                if ($request["eid"]) {
-                    $exam = Exam::find($request["eid"]);
-                    $exam->title = $request["title"];
-                    $exam->start = $request["start"];
-                    $exam->end = $request["end"];
-                    $exam->save();
-                } else {
-                    Exam::create($request);
-                }
-
-                return redirect('admin/exam');
-            break;
-            case "question":
-                $question = Question::create($request);
-                foreach($request["answer"] as $answer ){
-                    $answer["qid"] = $question->id;
-                    Answer::create($answer);
-                }
-                return Redirect::action('AdminController@question', array('eid' => $request["eid"]));
-            break;
-
+        if ($request["eid"]) {
+            $exam = Exam::find($request["eid"]);
+            $exam->title =$request["title"];
+            $exam->start = Date("Y-m-d",strtotime($request["start"]));
+            $exam->end = Date("Y-m-d",strtotime($request["end"]));
+            $exam->save();
+        } else {
+            Exam::create($request->all());
         }
 
+
+        return redirect('admin/exam');
+    }
+
+    public function storeQuestion(Requests\QuestionFormRequest $request){
+        $request = $request->all();
+
+        $question = Question::create($request);
+        $i=0;
+        foreach($request["answer"] as $answer ){
+            $answer["qid"] = $question->id;
+            if(isset($answer["yn"])){
+                $i++;
+            }
+            Answer::create($answer);
+        }
+        if($i>1){
+            $question->choice=1;
+            $question->save();
+        }
+        $exam = $question->exam;
+        $exam->number_s= $exam->number_s+$question->score;
+        $exam->number_q= $exam->number_q+1;
+        $exam->save();
+        return Redirect::action('AdminController@question', array('eid' => $request["eid"]));
     }
 
 
@@ -95,11 +114,33 @@ class AdminController extends Controller
                 return redirect("admin/exam");
             break;
             case "question":
-                Question::destroy($request["id"]);
+                $question = Question::find($request["id"]);
+                $exam = $question->exam;
+                $exam->number_q = $exam->number_q-1;
+                $exam->number_s = $exam->number_s-$question->score;
+                $exam->save();
+                $question->destroy($question->id);
                 return Redirect::action('AdminController@question', array('eid' => $request["eid"]));
             break;
 
         }
     }
+
+    public function rank(){
+        $request = Request::all();
+        $exams = Exam::get();
+        if(isset($request["eid"])){
+
+            $ranks = Score::rank($request["eid"])->get();
+            $rank_active[$request["eid"]] = "active";
+
+        }
+        else{
+            $wechatusers = Wechatuser::rank()->get();
+            $rank_active[0] = "active";
+        }
+        return view("admin.rank",compact("wechatusers","exams","ranks","rank_active"));
+    }
+
 
 }

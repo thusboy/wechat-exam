@@ -12,4 +12,9 @@ class Answer extends Model
         "yn",
         "qid"
     ];
+
+    public function question()
+    {
+        return $this->belongsTo('App\Question','qid');
+    }
 }

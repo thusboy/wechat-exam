@@ -45,3 +45,91 @@ ul li{
     font-weight: normal;
 }
 
+.score{
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+}
+
+.high_score{
+    color: darkred;
+}
+.middle_score{
+    color: darkorange;
+}
+.low_score{
+    color: darkgreen;
+}
+.clock{
+    height: 30px;
+    line-height: 30px;
+    color:#10aeff;
+}
+
+.time-counter{
+    margin-left: 10px;
+}
+
+.exam-info{
+    color: #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.final-score{
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.final-score img{
+    margin-top: 25px;
+}
+
+.question-type{
+    font-weight: bold;
+    color: darkcyan;
+}
+
+.rank-table{
+    width:100%;
+    border-collapse: collapse;
+}
+
+
+.rank-table tr{
+    border-bottom: 1px solid #ccc;
+
+}
+
+.rank-table td,.rank-table th{
+    text-align: center;
+    font-size: 0.8em;
+    height: 32px;
+    line-height: 32px;
+
+}
+.rank-table td img{
+    vertical-align: middle;
+    margin-bottom: 1px;
+}
+
+.form-item-desc{
+    font-size: 0.8em;
+    color: #ccc;
+}
+
+.rank-title{
+    color:#10aeff;
+    margin-bottom: 10px;
+}
+
+.finished-btns{
+    margin-top: 10px;
+}
+
+.weui_btn{
+    margin: 0 6px;
+}
+
+

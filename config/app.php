@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'zh',
 
     /*
     |--------------------------------------------------------------------------
@@ -162,6 +162,7 @@ return [
          * Wechat...
          */
         Overtrue\LaravelWechat\ServiceProvider::class,
+
 
     ],
 

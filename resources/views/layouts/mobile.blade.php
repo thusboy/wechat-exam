@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>共青团略阳县委</title>
+    <title>{{ isset($page_title)?$page_title:"共青团略阳县委"}}</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/jquery-mobile/1.4.5/jquery.mobile.min.css"/>
     <link rel="stylesheet" href="{{ URL::asset('/dist/style/weui.min.css') }}"/>
     <link rel="stylesheet" href="{{ URL::asset('/css/app.css') }}"/>

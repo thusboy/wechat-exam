@@ -33,3 +33,17 @@ ul.answer-ul{
 ul.answer-ul li{
     list-style: upper-latin;
 }
+
+.error-message{
+    padding: 10px;
+    color: #ac2925;
+    margin-bottom: 10px;
+}
+
+.remove{
+    color:red;
+}
+
+.nav-pills{
+    margin-bottom: 10px;
+}

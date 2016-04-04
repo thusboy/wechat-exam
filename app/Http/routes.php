@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 
 /*
@@ -36,17 +34,25 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
     Route::get('/admin', 'AdminController@index');
     Route::get('/admin/exam','AdminController@exam');
-    Route::post('/admin/store','AdminController@store');
+    Route::post('/admin/store-exam','AdminController@storeExam');
+    Route::get('/admin/store-exam','AdminController@storeExam');
+    Route::post('/admin/store-question','AdminController@storeQuestion');
+    Route::get('/admin/store-question','AdminController@storeQuestion');
     Route::get('/admin/delete','AdminController@delete');
     Route::get('/admin/question','AdminController@question');
-    Route::get('/home','HomeController@index');
+    Route::get('/admin/rank','AdminController@rank');
+    Route::get('/subscribe','HomeController@subscribe');
+
+
 
 });
 
-Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
-    Route::get('/user', function () {
-        $user = session('wechat.oauth_user'); // 拿到授权用户资料
-
-        dd($user);
-    });
+Route::group(['middleware' => ['web', 'wechat.oauth','wechat.subscribe']], function () {
+    Route::get('/','HomeController@welcome');
+    Route::get('/home','HomeController@index');
+    Route::get('/home/error','HomeController@error');
+    Route::post('/home/finished','HomeController@finished');
+    Route::get('/home/finished','HomeController@finished');
+    Route::post('/home/addmobile','HomeController@addmobile');
+    Route::get('/home/rank','HomeController@rank');
 });

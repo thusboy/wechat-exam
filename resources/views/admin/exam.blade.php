@@ -1,10 +1,13 @@
 @extends('admin.admin')
 
 @section('content-main')
+   @foreach ($errors->all() as $error)
+      <p class="error-message bg-danger">{{ $error }}</p>
+   @endforeach
    <div class="panel panel-default exam-update-panel">
       <div class="panel-heading">添加考试</div>
       <div class="panel-body">
-         {!! Form::open(array('url' => 'admin/store')) !!}
+         {!! Form::open(array('url' => 'admin/store-exam')) !!}
          <div class="row">
             <div class="col-md-5">
                <div class="form-group">
@@ -21,7 +24,6 @@
                      {!! Form::text('end','',array('class' => 'input-sm form-control','name'=>'end')) !!}
                   </div>
                   {!! Form::hidden('eid','',array('name'=>'eid')) !!}
-                  {!! Form::hidden('type','exam',array('name'=>'type')) !!}
                </div>
             </div>
             <div class="col-md-1">
@@ -42,6 +44,8 @@
                   <th>开始时间</th>
                   <th>结束时间</th>
                   <th>题目数量</th>
+                  <th>总分数</th>
+                  <th>参与人数</th>
                   <th>操作</th>
                </tr>
                @foreach( $exams as $exam)
@@ -49,7 +53,9 @@
                   <td id="title{{ $exam->id }}">{{ $exam->title }}</td>
                   <td id="start{{ $exam->id }}">{{ date("Y-m-d",strtotime($exam->start)) }}</td>
                   <td id="end{{ $exam->id }}">{{  date("Y-m-d",strtotime($exam->end)) }}</td>
-                  <td></td>
+                  <td>{{ $exam->number_q  }}</td>
+                  <td>{{ $exam->number_s  }}</td>
+                  <td>{{ $exam->number_u  }}</td>
                   <td>
                      <div class="btn-group">
                         <div type="button" class="btn btn-default dropdown-toggle btn-sm btn-danger" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

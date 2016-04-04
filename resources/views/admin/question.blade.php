@@ -1,16 +1,18 @@
 @extends('admin.admin')
 
 @section('content-main')
+    @foreach ($errors->all() as $error)
+        <p class="error-message bg-danger">{{ $error }}</p>
+    @endforeach
     <div class="panel panel-default exam-update-panel">
         <div class="panel-heading">添加试题</div>
         <div class="panel-body">
-            {!! Form::open(array('url' => 'admin/store')) !!}
+            {!! Form::open(array('url' => 'admin/store-question')) !!}
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         {!! Form::label('title', '试题') !!}
                         {!! Form::text('title','',array('class' => 'form-control')) !!}
-                        {!! Form::hidden('type','question',array('name'=>'type')) !!}
                         {!! Form::hidden('eid',$questions->eid,array('eid'=>'eid')) !!}
                     </div>
                 </div>
@@ -37,21 +39,28 @@
                <tr>
                    <th>正确答案?</th>
                    <th>答案内容</th>
+                   <th><th>
                </tr>
-               <tr>
+               <tr id="answer1">
                    <td>
                        {!! Form::checkbox('answer[1][yn]') !!}
                    </td>
                    <td>
                        {!! Form::text('answer[1][title]','',array('class' => 'form-control')) !!}
                    </td>
+                   <td>
+                       <a href="#" id="1" class='answer-remove'><span class="glyphicon glyphicon-remove remove" aria-hidden="true"></span></a>
+                   </td>
                </tr>
-               <tr>
+               <tr id="answer2">
                    <td>
                        {!! Form::checkbox('answer[2][yn]') !!}
                    </td>
                    <td>
                        {!! Form::text('answer[2][title]','',array('class' => 'form-control')) !!}
+                   </td>
+                   <td>
+                       <a href="#" id='2' class='answer-remove'><span class="glyphicon glyphicon-remove remove" aria-hidden="true"></span></a>
                    </td>
                </tr>
            </table>
@@ -61,12 +70,15 @@
         </div>
     {!! Form::close() !!}
     <table class="stand hidden">
-        <tr>
+        <tr id='answerreplace'>
             <td>
                 {!! Form::checkbox('answer[replace][yn]') !!}
             </td>
             <td>
                 {!! Form::text('answer[replace][title]','',array('class' => 'form-control')) !!}
+            </td>
+            <td>
+                <a href="#" id='replace' class='answer-remove'><span class="glyphicon glyphicon-remove remove" aria-hidden="true"></span></a>
             </td>
         </tr>
     </table>
