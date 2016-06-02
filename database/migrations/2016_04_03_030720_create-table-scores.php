@@ -18,7 +18,6 @@ class CreateTableScores extends Migration
             $table->string('openid');
             $table->integer('eid')->unsigned();
             $table->integer('score')->unsigned();
-            $table->integer('score_r')->unsigned();
             $table->integer('second')->unsigned();
             $table->timestamps();
 

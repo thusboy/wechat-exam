@@ -22,7 +22,7 @@
     text-align: center;
 }
 
-.blue{
+.ui-page-theme-a a.blue{
     color: #287fb2;
 }
 
@@ -130,6 +130,20 @@ ul li{
 
 .weui_btn{
     margin: 0 6px;
+}
+
+.weui_article section{
+    margin-bottom: 0.5em;
+}
+
+.small{
+    font-size: 0.8em;
+}
+
+.main_btn{
+
+    margin-top: 50px;
+
 }
 
 

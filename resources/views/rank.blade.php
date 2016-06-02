@@ -15,7 +15,7 @@
                 <tr>
                     <td>{{$key+1}}</td>
                     <td><img src="{{$wechatuser->headimgurl}}" height="30px" width="30px"/></td>
-                    <td>{{  preg_replace('/(1[358]{1}[0-9])[0-9]{4}([0-9]{4})/i','$1****$2',$wechatuser->mobile) }}</td>
+                    <td>{{  preg_replace('/(1[34578]{1}[0-9])[0-9]{4}([0-9]{4})/i','$1****$2',$wechatuser->mobile) }}</td>
                     <td>{{$wechatuser->score}}分</td>
                     <td>{{$wechatuser->second}}秒</td>
                 </tr>

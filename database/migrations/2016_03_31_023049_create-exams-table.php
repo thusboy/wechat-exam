@@ -16,11 +16,13 @@ class CreateExamsTable extends Migration
 
             $table->increments('id');
             $table->string('title');
-            $table->integer('number_s')->unsigned();
+            $table->integer('number_s_s')->unsigned();
+            $table->integer('number_s_m')->unsigned();
             $table->integer('number_u')->unsigned();
-            $table->integer('number_q')->unsigned();
-            $table->timestamp('start');
-            $table->timestamp('end');
+            $table->integer('number_q_s')->unsigned();
+            $table->integer('number_q_m')->unsigned();
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->timestamps();
 
         });

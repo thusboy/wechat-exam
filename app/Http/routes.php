@@ -48,8 +48,7 @@ Route::group(['middleware' => 'web'], function () {
 });
 
 Route::group(['middleware' => ['web', 'wechat.oauth','wechat.subscribe']], function () {
-    Route::get('/','HomeController@welcome');
-    Route::get('/home','HomeController@index');
+    Route::get('/','HomeController@index');
     Route::get('/home/error','HomeController@error');
     Route::post('/home/finished','HomeController@finished');
     Route::get('/home/finished','HomeController@finished');

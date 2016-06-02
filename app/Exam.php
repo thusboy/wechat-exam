@@ -14,8 +14,10 @@ class Exam extends Model
         "start",
         "end",
         "active",
-        "number_s",
-        "number_q",
+        "number_s_s",
+        "number_s_m",
+        "number_q_s",
+        "number_q_m",
         "number_u"
     ];
 

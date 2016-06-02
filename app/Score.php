@@ -11,7 +11,6 @@ class Score extends Model
         "openid",
         "eid",
         "score",
-        "score_r",
         "second"
     ];
 

@@ -70,6 +70,8 @@ class AdminController extends Controller
         if ($request["eid"]) {
             $exam = Exam::find($request["eid"]);
             $exam->title =$request["title"];
+            $exam->number_s_s =$request["number_s_s"];
+            $exam->number_s_m =$request["number_s_m"];
             $exam->start = Date("Y-m-d",strtotime($request["start"]));
             $exam->end = Date("Y-m-d",strtotime($request["end"]));
             $exam->save();
@@ -83,8 +85,8 @@ class AdminController extends Controller
 
     public function storeQuestion(Requests\QuestionFormRequest $request){
         $request = $request->all();
-
         $question = Question::create($request);
+        $exam = $question->exam;
         $i=0;
         foreach($request["answer"] as $answer ){
             $answer["qid"] = $question->id;
@@ -96,10 +98,11 @@ class AdminController extends Controller
         if($i>1){
             $question->choice=1;
             $question->save();
+            $exam->number_q_m= $exam->number_q_m+1;
         }
-        $exam = $question->exam;
-        $exam->number_s= $exam->number_s+$question->score;
-        $exam->number_q= $exam->number_q+1;
+        else{
+            $exam->number_q_s= $exam->number_q_s+1;
+        }
         $exam->save();
         return Redirect::action('AdminController@question', array('eid' => $request["eid"]));
     }
@@ -116,8 +119,13 @@ class AdminController extends Controller
             case "question":
                 $question = Question::find($request["id"]);
                 $exam = $question->exam;
-                $exam->number_q = $exam->number_q-1;
-                $exam->number_s = $exam->number_s-$question->score;
+                if($question->choice){
+                   $exam->number_q_m =  $exam->number_q_m-1;
+                }
+                else{
+                    $exam->number_q_s =  $exam->number_q_s-1;
+                }
+
                 $exam->save();
                 $question->destroy($question->id);
                 return Redirect::action('AdminController@question', array('eid' => $request["eid"]));
