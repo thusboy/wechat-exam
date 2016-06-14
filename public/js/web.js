@@ -46,8 +46,9 @@ $(function(){
         $("input[name='eid']").val(id);
         $("input[name='title']").val($("#title"+id).html());
         $("input[name='start']").val($("#start"+id).html());
-        $("input[name='number_s_s']").val("40");
+        $("input[name='number_s_s']").val($("#numbers"+id).html());
         $("input[name='number_s_m']").val($("#numberm"+id).html());
+        $("input[name='number_s_b']").val($("#numberb"+id).html());
         $("input[name='end']").val($("#end"+id).html());
     })
     $('#add-answer').click(function(){
@@ -68,7 +69,10 @@ $(function(){
         $("#answer"+$(this).attr('id')).remove();
     })
 
-
+    $('#question-tab a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    })
 
 
 })

@@ -54,7 +54,7 @@ class AdminController extends Controller
     public function question()
     {
         $request =Request::all();
-        $questions = Question::where('eid','=',$request["eid"])->get();
+        $questions = Question::where('eid','=',$request["eid"])->orderby("id","desc")->get();
         $questions->eid = $request["eid"];
         foreach($questions as $question){
             $answers = Answer::where('qid','=',$question->id)->get();
@@ -72,6 +72,7 @@ class AdminController extends Controller
             $exam->title =$request["title"];
             $exam->number_s_s =$request["number_s_s"];
             $exam->number_s_m =$request["number_s_m"];
+            $exam->number_s_b =$request["number_s_b"];
             $exam->start = Date("Y-m-d",strtotime($request["start"]));
             $exam->end = Date("Y-m-d",strtotime($request["end"]));
             $exam->save();
@@ -87,21 +88,30 @@ class AdminController extends Controller
         $request = $request->all();
         $question = Question::create($request);
         $exam = $question->exam;
-        $i=0;
-        foreach($request["answer"] as $answer ){
+        if($request["ifbq"]){
             $answer["qid"] = $question->id;
-            if(isset($answer["yn"])){
-                $i++;
-            }
+            $answer["yn"] = $request["boolen"]?1:0;
             Answer::create($answer);
-        }
-        if($i>1){
-            $question->choice=1;
+            $question->choice = 2;
             $question->save();
-            $exam->number_q_m= $exam->number_q_m+1;
+            $exam->number_q_b = $exam->number_q_b + 1;
         }
-        else{
-            $exam->number_q_s= $exam->number_q_s+1;
+        else {
+            $i = 0;
+            foreach ($request["answer"] as $answer) {
+                $answer["qid"] = $question->id;
+                if (isset($answer["yn"])) {
+                    $i++;
+                }
+                Answer::create($answer);
+            }
+            if ($i > 1) {
+                $question->choice = 1;
+                $question->save();
+                $exam->number_q_m = $exam->number_q_m + 1;
+            } else {
+                $exam->number_q_s = $exam->number_q_s + 1;
+            }
         }
         $exam->save();
         return Redirect::action('AdminController@question', array('eid' => $request["eid"]));

@@ -30,8 +30,4 @@ class Wechatuser extends Model
         return $query->where("mobile",">","0")->orderBy("score",'desc')->orderBy("second")->orderBy("created_at",'desc');
     }
 
-    public function scores()
-    {
-         return $this->hasMany('App\Score');
-    }
 }

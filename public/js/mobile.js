@@ -17,13 +17,30 @@ $(function() {
             wx.closeWindow();
             return false;
         }
+
+        var qid = $(this).attr("nik");
+        var page="#page"+$(this).attr("page");
+        var page2 = "#page"+(parseInt($(this).attr("page"))-1);
+        $(".correct-answer"+qid).show();
+        $(page2+" input").attr("disabled",true);
+        setTimeout('$.mobile.changePage("'+page+'","slidedown", true, true);' ,2000);
+
     });
     $("#exam_finished").click(function(){
 
 
-            $("input[name='second']").val($(".time-counter").html());
+        $("input[name='second']").val($(".time-counter").html());
+        var qid = $(this).attr("nik");
+        $(".correct-answer"+qid).show();
+        $(".exam-page input").attr("disabled",false);
+        setTimeout('$("#exam-form").submit()' ,2000);
 
     });
+
+    $(".sharespace").click(function(){
+        $(".sharetips").show();
+    })
+
 
 })
 
@@ -34,11 +51,12 @@ function timedCount()
 }
 
 
+
 wx.ready(function(){
     wx.onMenuShareTimeline({
-        title: '答题赢Iphone6S-略阳团委2016普法考试', // 分享标题
+        title: '我在2016亭湖区青少年网上禁毒知识竞赛中取得了'+$('.middle_score').html()+'分的好成绩,不服来战!iPad等你拿!', // 分享标题
         link: 'http://pic.qiantucdn.com/58pic/18/48/32/5627ce8c8b959_1024.jpg', // 分享链接
-        imgUrl: '', // 分享图标
+        imgUrl: 'http://img0w.pconline.com.cn/pconline/1412/11/spcgroup/width_640,qua_30/5863197_11.jpg', // 分享图标
         success: function () {
             alert("感谢分享");
         },
@@ -47,17 +65,17 @@ wx.ready(function(){
         }
     });
     wx.onMenuShareAppMessage({
-        title: '答题赢Iphone6S-略阳团委2016普法考试', // 分享标题
-        desc: '只要连续十天答题,分数最高者就可获得Iphone6s 16G一部哦,多多分享,让更多人参与进来,分享一样有礼', // 分享描述
+        title: '答题赢iPad Air-还有更多丰富奖品', // 分享标题
+        desc: '我正在参加2016亭湖区青少年网上禁毒知识竞赛,得了'+$('.middle_score').html()+'分,不服来战!!!!', // 分享描述
         link: '', // 分享链接
-        imgUrl: 'http://pic.qiantucdn.com/58pic/18/48/32/5627ce8c8b959_1024.jpg', // 分享图标
+        imgUrl: 'http://img0w.pconline.com.cn/pconline/1412/11/spcgroup/width_640,qua_30/5863197_11.jpg', // 分享图标
         type: '', // 分享类型,music、video或link，不填默认为link
         dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
         success: function () {
-            // 用户确认分享后执行的回调函数
+            alert("感谢分享");
         },
         cancel: function () {
-            // 用户取消分享后执行的回调函数
+            alert("分享一下嘛");
         }
     });
 

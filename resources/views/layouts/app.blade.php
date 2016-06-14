@@ -37,7 +37,7 @@
                 <!-- Branding Image -->
                 <img src="{{ URL::asset('images/gqt_logo_s.png') }}" alt='' height="30px" class="navbar-header">
                 <a class="navbar-brand" href="{{ url('/admin') }}">
-                    略阳团委在线普法考试系统
+                    盐城市亭湖区团委禁毒知识在线考试系统
                 </a>
             </div>
 

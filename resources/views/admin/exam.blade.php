@@ -9,7 +9,7 @@
       <div class="panel-body">
          {!! Form::open(array('url' => 'admin/store-exam')) !!}
          <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                <div class="form-group">
                   {!! Form::label('title', '考试名称') !!}
                   {!! Form::text('title','',array('class' => 'form-control')) !!}
@@ -27,7 +27,13 @@
                   {!! Form::selectRange('number_s_m',1,50,"",array('class' => 'form-control')) !!}
                </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
+               <div class="form-group">
+                  {!! Form::label('number_s_b', '考试判断题数量') !!}
+                  {!! Form::selectRange('number_s_b',1,50,"",array('class' => 'form-control')) !!}
+               </div>
+            </div>
+            <div class="col-md-3">
                <div class="form-group">
                   {!! Form::label('expired', '有效时间') !!}
                   <div class="input-daterange input-group" id="datepicker">
@@ -57,8 +63,10 @@
                   <th>结束时间</th>
                   <th>题库单选数量</th>
                   <th>题库多选数量</th>
+                  <th>题库判断数量</th>
                   <th>考试单选数量</th>
                   <th>考试多选数量</th>
+                  <th>考试判断数量</th>
                   <th>参与人数</th>
                   <th>操作</th>
                </tr>
@@ -69,8 +77,10 @@
                   <td id="end{{ $exam->id }}">{{  date("Y-m-d",strtotime($exam->end)) }}</td>
                   <td>{{ $exam->number_q_s  }}</td>
                   <td>{{ $exam->number_q_m  }}</td>
+                  <td>{{ $exam->number_q_b  }}</td>
                   <td id="numbers{{ $exam->id }}">{{ $exam->number_s_s  }}</td>
                   <td id="numberm{{ $exam->id }}"> {{ $exam->number_s_m  }}</td>
+                  <td id="numberb{{ $exam->id }}"> {{ $exam->number_s_b  }}</td>
                   <td>{{ $exam->number_u  }}</td>
                   <td>
                      <div class="btn-group">

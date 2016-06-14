@@ -20,6 +20,8 @@ class CreateTableWechatusers extends Migration
             $table->text('headimgurl');
             $table->boolean('sex');
             $table->string('mobile');
+            $table->string('name');
+            $table->string('department');
             $table->string('country');
             $table->string('province');
             $table->string('city');

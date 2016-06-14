@@ -146,4 +146,15 @@ ul li{
 
 }
 
+.correct-answer{
+    display: none;
+}
+
+.font-red{
+    color:red;
+}
+
+.sharetips{
+    display: none;
+}
 

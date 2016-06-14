@@ -21,13 +21,23 @@
                 </div>
                 @if(!$wechatuser->mobile)
                 {!! Form::open(array('url' => 'home/addmobile','data-ajax'=>"false")) !!}
+                        {!! Form::label('name', '您的姓名') !!}
+                         {!! Form::text('name','',array('name'=>'name')) !!}
                         {!! Form::label('mobile', '您的手机') !!}
                         {!! Form::text('mobile','',array('name'=>'mobile')) !!}
-                     <div class="form-item-desc">注意:请输入您正在使用的手机号码,这是您获取奖品最重要的凭证,不输入手机号码的用户不参与排名和奖品领取的活动.</div>
-                        {!! Form::submit('提交',array("class" => "weui_btn weui_btn_primary addmobile",'rel'=>'external')) !!}
+                        {!! Form::label('deparment', '您的单位') !!}
+                        {!! Form::text('department','',array('name'=>'department')) !!}
+                     <div class="form-item-desc">注意:请输入真实完整的信息,这是您获取奖品最重要的凭证,信息输入不完整或者不真实的用户不参与奖品的领取活动.</div>
+
+                    <div class="ui-grid-a">
+                        {!! Form::submit('提交领奖信息',array("class" => "weui_btn weui_btn_primary addmobile",'rel'=>'external')) !!}
+                        <a href="../" class = "weui_btn weui_btn_warn again" rel='external'>再考一次</a>
+                        <a href="#" class =  "weui_btn weui_btn_primary sharespace">分享成绩到朋友圈</a>
+
+                    </div>
                 {!! Form::close() !!}
                 @else
-                    <div class="center"><h4 class="rank-title">本次考试排行榜</h4></div>
+                    <div class="center"><h4 class="rank-title">考试排行榜</h4></div>
                     <table class="rank-table">
                         <tr>
                             <th>名次</th>
@@ -39,23 +49,25 @@
                         @foreach($scores as $key => $score)
                             <tr>
                                 <td>{{$key+1}}</td>
-                                <td><img src="{{$score->wechatuser->headimgurl}}" height="30px" width="30px"/></td>
-                                <td>{{  preg_replace('/(1[358]{1}[0-9])[0-9]{4}([0-9]{4})/i','$1****$2',$score->wechatuser->mobile) }}</td>
+                                <td><img src="{{$score->headimgurl}}" height="30px" width="30px"/></td>
+                                <td>{{  preg_replace('/(1[358]{1}[0-9])[0-9]{4}([0-9]{4})/i','$1****$2',$score->mobile) }}</td>
                                 <td>{{$score->score}}分</td>
                                 <td>{{$score->second}}秒</td>
                             </tr>
 
                         @endforeach
                     </table>
+                    <div class="center small">排行成绩以用户历史最高分计算</div>
                     <div class="center finished-btns">
 
-                        <a href="rank" class="weui_btn weui_btn_primary" rel="external">查看总排行榜</a>
+                        <a href="../" class = "weui_btn weui_btn_warn again" rel='external'>再考一次</a>
+                        <a href="#" class =  "weui_btn weui_btn_primary sharespace">分享成绩到朋友圈</a>
 
                     </div>
                 @endif
         </div>
 
-    @if($re_submit || $errors->all() )
+    @if($errors->all() )
                 <div class="weui_dialog_alert">
                     <div class="weui_mask"></div>
                     <div class="weui_dialog">
@@ -65,8 +77,7 @@
                                 @foreach ($errors->all() as $error)
                                     <p class="error-message bg-danger">{{ $error }}</p>
                                 @endforeach
-                            @else
-                            您已经提交过了成绩,通过返回重新修改的答案不生效,您的成绩将以原始提交数据为准
+
                             @endif
                         </div>
                         <div class="weui_dialog_ft">
@@ -75,4 +86,16 @@
                     </div>
                 </div>
     @endif
+            <div class="weui_dialog_alert sharetips">
+                <div class="weui_mask"></div>
+                <div class="weui_dialog">
+                    <div class="weui_dialog_hd"><strong class="weui_dialog_title">提示</strong></div>
+                    <div class="weui_dialog_bd">
+                        点击右上角菜单开关打开下方菜单栏使用分享到朋友圈按钮和发送给好友进行分享.
+                    </div>
+                    <div class="weui_dialog_ft">
+                        <a href="#" class="weui_btn_dialog primary">确定</a>
+                    </div>
+                </div>
+            </div>
 @endsection
